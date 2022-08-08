@@ -1,0 +1,231 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+td>a {
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  width: 100px;
+  height: 25px;
+  overflow: hidden;
+  background-color: rgb(0, 204, 255);
+  text-align: center;
+}
+
+img {
+  margin: 0 auto;
+  height: 25px;
+}
+
+.kuan {
+  display: inline-block;
+  width: 180px;
+}
+
+.gao {
+  display: inline-block;
+  height: 120px;
+}
+
+.one {
+  background-image: url(img/b91090aad1b643dba3ee49b75030ae77.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 773px;
+
+}
+
+a:hover {
+  background-color: #FFA500;
+  /* color: red; */
+  /* transform: scale(1.1); */
+}
+/* 被点击时 */
+a:active{
+  transform: scale(0.98);
+  /* transition: all  ; */
+}
+
+
+/* 左边边框 */
+
+.lfbd {
+  border-left: 3px orange solid;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 0px;
+  border-bottom: 0px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+/* 天气板块 */
+.weather body {
+  padding: 0 200px;
+  background-color: rgb(85, 68, 68);
+}
+
+.weather ul {
+  margin: 0 auto;
+}
+
+.weather li {
+  list-style: none;
+  height: 40px;
+  width: 200px;
+  background-color: rgba(51, 0, 255, .2);
+  float: left;
+}
+
+.weather table {
+  color: rgb(68, 48, 83);
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.381);
+}
+
+.weather thead,
+.weather th,
+.weather td {
+  text-align: center;
+  padding: 10px;
+}
+
+.weather div {
+  width: 50px;
+  margin: 20px auto;
+  color: rgb(0, 204, 255);
+}
+
+/* 旋转动画 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #333;
+  color: #222;
+  overflow: hidden;
+  margin: 0;
+}
+
+.one {
+  background-color: #fafafa;
+  transform-origin: top left;
+  transition: transform 0.5s linear;
+  width: 100vw;
+  /* height: 100vh; */
+  padding: 50px;
+}
+
+.one.show-nav {
+  transform: rotate(-20deg)
+}
+
+.circle-container {
+  position: fixed;
+  top: -100px;
+  left: -100px;
+}
+
+.circle {
+  /* opacity: .2; */
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  position: relative;
+  transition: transform 0.5s linear;
+}
+
+.one.show-nav .circle {
+  transform: rotate(-70deg);
+}
+
+.circle button {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  background: transparent;
+  border: 0;
+  font-size: 26px;
+  color:   rgb(0, 204, 255);
+
+}
+
+.circle button:focus {
+  outline: none;
+  /* color: #ff7979; */
+}
+
+
+.circle button:hover {
+  outline: none;
+  /* color: #ff7979; */
+  color: rgb(255,165,0);
+}
+
+.circle button#open {
+  left: 60%;
+}
+
+.circle button#close {
+  top: 60%;
+  transform: rotate(90deg);
+  transform-origin: top left;
+}
+
+.one.show-nav+nav li {
+  transform: translateX(0);
+  transition-delay: 0.3s;
+}
+
+
+nav {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  z-index: 1000;
+}
+
+nav ul {
+  list-style-type: none;
+  padding-left: 30px;
+}
+
+nav ul li {
+  text-transform: uppercase;
+  color: #fff;
+  margin: 40px 0;
+  transform: translateX(-100%);
+  transition: transform 0.4s ease-in;
+}
+
+nav ul li i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+nav ul li+li {
+  margin-left: 15px;
+  transform: translateX(-150%);
+}
+
+nav ul li+li+li {
+  margin-left: 30px;
+  transform: translateX(-200%);
+}
+
+nav a {
+  color: #fafafa;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+nav a:hover {
+  color: #ff7979;
+  font-weight: bold;
+}

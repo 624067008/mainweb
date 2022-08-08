@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/图标.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="./home.css">
+  <title>邓遥波</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="one">
+      <div class="circle-container">
+        <div class="circle">
+          <button id="close" type="button" title="1">
+            <i class="fas fa-times"></i>
+          </button>
+          <button id="open" type="button" title="1">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+      </div>
+      <!-- 快捷常用导航 -->
+      <table class="box">
+        <tbody>
+          <tr class="gao"></tr>
+          <tr v-for="(item,i) in itemlist" :key="i">
+            <td class="kuan"></td>
+            <td class="lfbd"><img :src="item.imgUrl" title="1"></td>
+            <td><a :href="item.aUrl" target="_blank">{{item.name}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- 天气表 -->
+      <div class="weather">
+        <div>forecast_1h</div>
+        <table>
+          <tbody>
+            <tr>
+              <th>时间</th>
+              <th>气温</th>
+              <th>天气</th>
+              <th>风向</th>
+              <th>风强</th>
+            </tr>
+            <tr>
+              <td id="time_1h">{{time}}</td>
+              <td id="degree_1h">{{data_1h.degree}}</td>
+              <td id="weather_1h">{{data_1h.weather}}</td>
+              <td id="direction_1h">{{data_1h.wind_direction}}</td>
+              <td id="strong_1h">{{data_1h.wind_power}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>forecast_24h</div>
+        <table>
+          <tbody>
+            <tr>
+              <th>时间</th>
+              <th>最大气温</th>
+              <th>最小气温</th>
+              <th>天气</th>
+              <th>风向</th>
+              <th>风强</th>
+            </tr>
+            <tr>
+              <td id="time_24h">{{data_24h.time}}</td>
+              <td id="degree_max">{{data_24h.max_degree}}</td>
+              <td id="degree_min">{{data_24h.min_degree}}</td>
+              <td id="weather_24h">{{data_24h.day_weather}}</td>
+              <td id="direction_24h">{{data_24h.day_wind_direction}}</td>
+              <td id="strong_24h">{{data_24h.day_wind_power}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- 页面导航栏 -->
+    <nav>
+      <ul>
+        <li><i class="fas fa-home"></i><a href="file:///D:/front-end/BaiyeWeb/home.html">Home</a></li>
+        <li><i class="fas fa-list"></i><a href="file:///D:/front-end/BaiyeWeb/todolist.html">TODOLIST</a>
+        </li>
+        <li><i class="fas fa-envelope"></i><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script>
+  <script>
+
+    // vue实例
+    const vm = new Vue({
+      el: '#app',
+      mounted() {
+        // 监听上箭头
+        // document.addEventListener('keyup', () => {
+        //   if (event.code === 'ArrowDown') {
+        //     location.href = 'file:///D:/documents/front-end/BaiyeWebRetry/todolist.html'
+        //   }
+        // })
+
+        const open = document.getElementById('open')
+        const close = document.getElementById('close')
+        const container = document.querySelector('.one')
+        open.addEventListener('click', () => container.classList.add('show-nav'))
+        close.addEventListener('click', () => container.classList.remove('show-nav'))
+
+
+        //获取天气数据
+        this.jsonp('https://wis.qq.com/weather/common?callback=vm.myJsonp1h', this.params_1h)
+        this.jsonp('https://wis.qq.com/weather/common?callback=vm.myJsonp24h', this.params_24h)
+        // 每格10分种获取最新数据
+        setInterval(() => {
+          this.jsonp('https://wis.qq.com/weather/common?callback=vm.myJsonp1h', this.params_1h)
+          this.jsonp('https://wis.qq.com/weather/common?callback=vm.myJsonp24h', this.params_24)
+        }, 600000)
+
+        setInterval(() => {
+          this.time = this.dateFormat(this.data_1h.update_time)
+        }, 1000)
+      },
+      data: {
+        //常用网站数据
+        itemlist: [
+          {
+            imgUrl: 'img/10wmt-master1050-v4.jpg',
+            aUrl: "https://www.twitter.com",
+            name: '推特'
+          },
+          {
+            imgUrl: 'img/bili.png',
+            aUrl: "https://www.bilibili.com/",
+            name: 'b站'
+          },
+          {
+            imgUrl: 'img/bili.png',
+            aUrl: "https://www.bilibili.com/account/history",
+            name: '历史记录'
+          },
+          {
+            imgUrl: 'img/油管.png',
+            aUrl: "https://www.youtube.com",
+            name: '油管'
+          },
+          {
+            imgUrl: 'img/腾讯视频.png',
+            aUrl: "https://v.qq.com/",
+            name: '腾讯视频'
+          },
+          {
+            imgUrl: 'img/学习通.jpg',
+            aUrl: "http://i.chaoxing.com/base?t=1632306938158",
+            name: '学习通'
+          },
+          {
+            imgUrl: 'img/ins.jpg',
+            aUrl: "https://www.ikanins.com/",
+            name: 'ins美女推荐'
+          },
+          {
+            imgUrl: 'img/抖音.png',
+            aUrl: "https://www.douyin.com/",
+            name: '抖音'
+          },
+          {
+            imgUrl: 'img/虎牙.jpg',
+            aUrl: "https://www.huya.com/",
+            name: '虎牙'
+          },
+          {
+            imgUrl: 'img/斗鱼.jpg',
+            aUrl: "http://www.douyu.com",
+            name: '斗鱼'
+          }
+        ],
+        // 查询1h参数对象
+        params_1h: {
+          source: 'pc',
+          province: '湖南',
+          city: '长沙',
+          county: '天心区',
+          weather_type: 'forecast_1h'
+        },
+
+        // 设置获取24小时预测请求参数
+        params_24h: {
+          source: 'pc',
+          province: '湖南',
+          city: '长沙',
+          county: '天心区',
+          weather_type: 'forecast_24h'
+        },
+        //当前时间
+        time: '',
+        //1h数据
+        data_1h: {},
+        data_24h: {}
+      },
+      methods: {
+        //jsonp请求函数
+        jsonp(url, options) {
+          var $script = document.createElement('script')
+          // var f = url.indexof('?') > -1 ? '&' : '?'
+          // url += f + '_=' + Date.now()
+          for (var i in options) {
+            url += '&' + i + '=' + options[i]
+          }
+          $script.src = url
+          document.body.appendChild($script)
+          $script.onload = function () {
+            this.remove()
+          }
+        },
+
+        // 格式化获取到的时间
+        dateFormat(date) {
+          let time = new Date()
+          var year = date.substr(0, 4)
+          var b = date.substr(4, 2)
+          var c = this.padzero(time.getDate())
+          var d = this.padzero(time.getHours())
+          var min = this.padzero(time.getMinutes())
+          var second = this.padzero(time.getSeconds())
+          return year + '-' + b + '-' + c + ' ' + d + ':' + min + ':' + second
+        },
+        // 时间补零
+        padzero(n) {
+          return n > 9 ? n : '0' + n
+        },
+        // 请求后触发的callback函数
+        myJsonp1h(res) {
+          this.data_1h = res.data.forecast_1h[0]
+          this.time = this.dateFormat(this.data_1h.update_time)
+        },
+        myJsonp24h(res) {
+          this.data_24h = res.data.forecast_24h[1]
+        }
+      },
+
+
+    })
+  </script>
+</body>
+
+</html>

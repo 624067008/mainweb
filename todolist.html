@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/图标.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./todolist.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <title>todolist</title>
+</head>
+
+<body>
+  <div class="two">
+    <!-- 页面导航条 -->
+    <div class="circle-container">
+      <div class="circle">
+        <button id="close">
+          <i class="fas fa-times"></i>
+        </button>
+        <button id="open">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <div class="todolist">
+      <header>
+        <section class="w">
+          <label for="title">ToDoList</label>
+          <input type="text" id="title" placeholder="添加ToDo" required="required" auto>
+        </section>
+      </header>
+      <section class="w">
+        <h2>正在进行 <span id="todocount"></span></h2>
+        <ol id="todolist" class="demo-box"></ol>
+        <h2>已经完成 <span id="donecount"></span></h2>
+        <ul id="donelist"></ul>
+      </section>
+    </div>
+
+  </div>
+  <nav>
+    <ul>
+      <li><i class="fas fa-home"></i><a href="file:///D:/front-end/BaiyeWeb/home.html">Home</a></li>
+      <li><i class="fas fa-list"></i><a href="file:///D:/front-end/BaiyeWeb/todolist.html">todolist</a>
+      </li>
+      <li><i class="fas fa-envelope"></i><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <script src="../前端通用文件/jquery.js"></script>
+  <script>
+    // document.addEventListener('keyup', () => {
+    //   if (event.code === 'ArrowUp') {
+    //     // console.log(window.location)
+    //     location.href = 'file:///D:/documents/front-end/BaiyeWebRetry/home.html'
+    //   }
+    // })
+
+
+    const open = document.getElementById('open')
+    const close = document.getElementById('close')
+    const container = document.querySelector('.two')
+    open.addEventListener('click', () => container.classList.add('show-nav'))
+    close.addEventListener('click', () => container.classList.remove('show-nav'))
+
+
+    load();
+    //1.发送
+    $("#title").on("keydown", function (e) {
+      if (e.keyCode === 13 && $(this).val()) {
+        //1.读取本地存储数据
+        var local = getDate();
+        //2.把local数组进行更新
+        local.push({
+          title: $(this).val(),
+          done: false
+        });
+        //3.把数据存起来
+        saveDate(local);
+        load();
+        $(this).val('');
+      }
+    });
+    //2.删除
+    $('ol,#donelist').on('click', 'a', function () {
+      var data = getDate();
+      var index = $(this).attr('id');
+      data.splice(index, 1);
+      saveDate(data);
+      load();
+
+    })
+    //3.todo  done 切换
+    $('ol,#donelist').on('click', 'input', function () {
+      var data = getDate();
+      var index = $(this).siblings('a').attr('id');
+      data[index].done = $(this).prop('checked');
+      saveDate(data);
+      load();
+    })
+    //读取本地存储数据
+    function getDate() {
+      var data = localStorage.getItem('todolist');
+      if (data !== null) {
+        return JSON.parse(data);
+      } else {
+        return [];
+      }
+    }
+    //保存本地存储数据
+    function saveDate(data) {
+      localStorage.setItem('todolist', JSON.stringify(data))
+    }
+    //渲染加载数据
+    function load() {
+      var data = getDate();
+      $('ol,#donelist').empty();
+      var todocount = 0;
+      var donecount = 0;
+      $.each(data, function (i, n) {
+        if (n.done) {
+          $('#donelist').prepend('<li><input type="checkbox" checked="checked"><p>' + n.title + '</p><a href="javascript:;" id=' + i + '>⊗</a></li>')
+          donecount++;
+        } else {
+          $('ol').prepend('<li><input type="checkbox"><p>' + n.title + '</p><a href="javascript:;" id=' + i + '>⊗</a></li>')
+          todocount++;
+        }
+
+      })
+      $('#todocount').text(todocount);
+      $('#donecount').text(donecount);
+    }
+  </script>
+</body>
+
+</html>
