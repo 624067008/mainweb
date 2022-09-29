@@ -37,11 +37,13 @@
 
 .two {
   /* background-color: rgb(105, 96, 96); */
-  background-image: url(img/2222.jpg);
+  background-image: url(img/2222.jpg) ;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 -280px;
-  height: 760px;
+  transform-origin: top left;
+  transition: transform 0.5s linear;
+  height: 100vh;
 }
 
 .todolist header {
@@ -96,11 +98,7 @@ body {
 }
 
 .two {
-  background-color: #fafafa;
-  transform-origin: top left;
-  transition: transform 0.5s linear;
-  width: 100vw;
-  /* height: 100vh; */
+
   /* padding: 50px; */
 }
 

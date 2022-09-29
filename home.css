@@ -1,16 +1,34 @@
+:root{
+  /* --mainColor1:rgb(0, 204, 255); */
+  --mainColor1:rgb(83, 59, 215);
+  --mainColor1O:rgba(83, 59, 215,.5);
+  /* --mainColor1O:rgba(0, 204, 255,.5); */
+  --mainColor2:#FFA500;
+  --textColor:black;
+}
+
+body{
+  min-width: 900px
+}
+
 *{
   padding: 0;
   margin: 0;
+  font: 1em '微软雅黑';
 }
 td>a {
   text-decoration: none;
-  color: white;
+  color: var(--textColor);
   display: inline-block;
   width: 100px;
   height: 25px;
   overflow: hidden;
-  background-color: rgb(0, 204, 255);
+  background-color: var(--mainColor1O);
   text-align: center;
+  border-radius: 4px;
+  transition: .3s;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
 
 img {
@@ -25,64 +43,150 @@ img {
 
 .gao {
   display: inline-block;
-  height: 120px;
+  height: 8vh;
 }
 
 .one {
   background-image: url(img/b91090aad1b643dba3ee49b75030ae77.png);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 773px;
+  height: 100vh;
 
 }
 
+a{
+  background-color: var(--mainColor1O);
+  border-radius: 4px;
+  width: 100px;
+  height: 25px;
+  display: inline-block;
+  text-align: center;
+}
+
 a:hover {
-  background-color: #FFA500;
-  /* color: red; */
-  /* transform: scale(1.1); */
+  background-color: var(--mainColor2);
+  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
 }
 /* 被点击时 */
 a:active{
   transform: scale(0.98);
-  /* transition: all  ; */
+  transition: all .4s ;
 }
 
 
-/* 左边边框 */
 
-.lfbd {
-  border-left: 3px orange solid;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  border-top: 0px;
-  border-bottom: 0px;
-  padding-top: 0;
-  padding-bottom: 0;
+.photo{
+  display: inline-block;
+  border-radius: 4px;
+}
+
+/* 左边边框 */
+.lfbd{
+  float: right;
+}
+
+
+
+/* 右上角换固定色彩蛋 */
+.changeMainColor{
+  position: fixed;
+  top: 0;
+  right:0;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+/* 右下角换随机色彩蛋 */
+.randomMainColor{
+  position: fixed;
+  bottom: 0 ;
+  right:  0px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+
 }
 
 
 /* 天气板块 */
-.weather body {
-  padding: 0 200px;
-  background-color: rgb(85, 68, 68);
+.container_1h{
+  width: 460px;
+  height: 140px;
+  border-radius: 10px;
+  background-color: var(--mainColor1O);
+  position: fixed;
+  top: 113px;
+  right: -462px;
+  transition: all .5s ease;
+}
+.container_1h.open{
+  right: 5px;
+  box-shadow: 2px 2px 3px var(--mainColor2),-2px -2px 5px var(--mainColor2);
+}
+/* 1h开关 */
+.container_1h .open1h{
+  display: inline-block;
+  position: relative;
+  width: 12px;
+  left: -20px;
+  top: 20px;
+  color: var(--textColor);
+  background-color: var(--mainColor1O);
+  border-radius: 4px ;
+  cursor: pointer;
+  transition: .3s;
+}
+.container_1h .open1h:hover{
+  background-color: var(--mainColor2);
+  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
 }
 
-.weather ul {
-  margin: 0 auto;
+.container_24h{
+  width: 461px;
+  border-radius: 10px;
+  background-color: var(--mainColor1O);
+  position: fixed;
+  top: 275px;
+  right: -462px;
+  transition: all .5s ease;
+}
+.container_24h.open{
+  right: 5px;
+  box-shadow: 2px 2px 3px var(--mainColor2),-2px -2px 5px var(--mainColor2);
 }
 
-.weather li {
-  list-style: none;
-  height: 40px;
-  width: 200px;
-  background-color: rgba(51, 0, 255, .2);
-  float: left;
+/* 24h开关 */
+.container_24h .open24h{
+  position: relative;
+  width: 12px;
+  left: -20px;
+  top: 20px;
+  color: var(--textColor);
+  background-color: var(--mainColor1O);
+  border-radius: 4px ;
+  cursor: pointer;
+  transition: .3s;
+
+}
+.container_24h .open24h:hover{
+  background-color: var(--mainColor2);
+  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
+}
+.weather .weather_header{
+  width: 100px;
+  text-align: center;
+  margin: 0px auto;
+  border-radius: 4px;
+
+  color: var(--textColor);
+
 }
 
 .weather table {
-  color: rgb(68, 48, 83);
+  color: var(--textColor);
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.381);
+  border-radius: 10px;
 }
 
 .weather thead,
@@ -92,11 +196,6 @@ a:active{
   padding: 10px;
 }
 
-.weather div {
-  width: 50px;
-  margin: 20px auto;
-  color: rgb(0, 204, 255);
-}
 
 /* 旋转动画 */
 * {
@@ -112,7 +211,7 @@ body {
 }
 
 .one {
-  background-color: #fafafa;
+  background-color: var(--textColor);
   transform-origin: top left;
   transition: transform 0.5s linear;
   width: 100vw;
@@ -152,22 +251,25 @@ body {
   background: transparent;
   border: 0;
   font-size: 26px;
-  color:   rgb(0, 204, 255);
-
+  color:   var(--mainColor1O);
+  transition: .3s;
 }
 
 .circle button:focus {
   outline: none;
-  /* color: #ff7979; */
 }
 
 
 .circle button:hover {
   outline: none;
-  /* color: #ff7979; */
-  color: rgb(255,165,0);
 }
 
+.circle  .fas:hover{
+  color: var(--mainColor2);
+  transform: rotate(180deg);
+  transition:  .5s;
+  text-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
+}
 .circle button#open {
   left: 60%;
 }
@@ -198,9 +300,9 @@ nav ul {
 
 nav ul li {
   text-transform: uppercase;
-  color: #fff;
+  color: var(--textColor);
   margin: 40px 0;
-  transform: translateX(-100%);
+  transform: translateX(-120%);
   transition: transform 0.4s ease-in;
 }
 
@@ -220,12 +322,12 @@ nav ul li+li+li {
 }
 
 nav a {
-  color: #fafafa;
+  color: var(--textColor);
   text-decoration: none;
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 nav a:hover {
-  color: #ff7979;
-  font-weight: bold;
+  display: inline-block;
+  border-radius: 4px;
 }
