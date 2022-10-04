@@ -3,7 +3,8 @@
   --mainColor1:rgb(83, 59, 215);
   --mainColor1O:rgba(83, 59, 215,.5);
   /* --mainColor1O:rgba(0, 204, 255,.5); */
-  --mainColor2:#FFA500;
+  --mainColor2:rgb(255,165,0);
+  --mainColor2O:rgba(255,165,0,.5);
   --textColor:black;
 }
 
@@ -51,24 +52,52 @@ img {
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-
 }
 
-a{
-  background-color: var(--mainColor1O);
+.jump{
+  position: relative;
+  background: linear-gradient(to right, var(--mainColor1O) 50%, var(--mainColor2O) 50%);
   border-radius: 4px;
   width: 100px;
   height: 25px;
   display: inline-block;
   text-align: center;
+  color: transparent;
 }
-
-a:hover {
-  background-color: var(--mainColor2);
-  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
+.jump::before{
+  position: absolute;
+  content: attr(data-text);
+  left: 0;
+  top: 0px;
+  color: transparent;
+  display: inline-block;
+  width: 100px;
+  height: 25px;
+  background: linear-gradient(to right, var(--mainColor2) 50%, transparent 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: none;
+}
+.jump::after{
+  position: absolute;
+  content: attr(data-text);
+  left: 0;
+  top: 0px;
+  color: transparent;
+  display: inline-block;
+  width: 100px;
+  height: 25px;
+  background: linear-gradient(to left, var(--mainColor1) 50%, transparent 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: none;
+}
+.jump:hover {
+  background: linear-gradient(to right, var(--mainColor1) 50%, var(--mainColor2) 50%);
+  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2);
 }
 /* 被点击时 */
-a:active{
+.jump:active{
   transform: scale(0.98);
   transition: all .4s ;
 }
@@ -107,53 +136,66 @@ a:active{
   cursor: pointer;
 
 }
-
+/* 左下角换肤彩蛋 */
+.randomBackGround{
+  position: fixed;
+  bottom: 0 ;
+  left:  0px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
 
 /* 天气板块 */
-.container_1h{
+#container_1h{
   width: 460px;
   height: 140px;
   border-radius: 10px;
-  background-color: var(--mainColor1O);
+  background: linear-gradient(to right, var(--mainColor1) 50%, var(--mainColor2) 50%);
   position: fixed;
   top: 113px;
   right: -462px;
   transition: all .5s ease;
+  text-shadow: 0px 0px var(--mainColor1),-1px -14px var(--mainColor2);
 }
-.container_1h.open{
+#container_1h.open_1h{
   right: 5px;
-  box-shadow: 2px 2px 3px var(--mainColor2),-2px -2px 5px var(--mainColor2);
+  box-shadow: 2px 2px 3px var(--mainColor1),-2px -2px 5px var(--mainColor2);
 }
 /* 1h开关 */
-.container_1h .open1h{
+#container_1h .open1h{
   display: inline-block;
   position: relative;
   width: 12px;
   left: -20px;
   top: 20px;
   color: var(--textColor);
-  background-color: var(--mainColor1O);
+  background: linear-gradient(to right, var(--mainColor1O) 50%, var(--mainColor2O) 50%);
+  text-shadow:none;
   border-radius: 4px ;
   cursor: pointer;
-  transition: .3s;
+  transition:all .3s;
 }
-.container_1h .open1h:hover{
-  background-color: var(--mainColor2);
-  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
+#container_1h .open1h:hover{
+  background: linear-gradient(to right, var(--mainColor1) 50%, var(--mainColor2) 50%);
+  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2);
+  transform:  scale(1.5);
 }
 
 .container_24h{
   width: 461px;
   border-radius: 10px;
-  background-color: var(--mainColor1O);
+  background: linear-gradient(to right, var(--mainColor1) 50%, var(--mainColor2) 50%);
   position: fixed;
   top: 275px;
   right: -462px;
   transition: all .5s ease;
+  color: transparent;
+  text-shadow: 0px 0px var(--mainColor1),-1px -14px var(--mainColor2);
 }
 .container_24h.open{
   right: 5px;
-  box-shadow: 2px 2px 3px var(--mainColor2),-2px -2px 5px var(--mainColor2);
+  box-shadow: 2px 2px 3px var(--mainColor1),-2px -2px 5px var(--mainColor2);
 }
 
 /* 24h开关 */
@@ -163,15 +205,16 @@ a:active{
   left: -20px;
   top: 20px;
   color: var(--textColor);
-  background-color: var(--mainColor1O);
+  background: linear-gradient(to right, var(--mainColor1O) 50%, var(--mainColor2O) 50%);
   border-radius: 4px ;
   cursor: pointer;
-  transition: .3s;
-
+  transition:all .3s;
+  text-shadow: none;
 }
 .container_24h .open24h:hover{
-  background-color: var(--mainColor2);
-  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
+  background: linear-gradient(to left, var(--mainColor1) 50%, var(--mainColor2) 50%);
+  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2);
+  transform:  scale(1.5);
 }
 .weather .weather_header{
   width: 100px;
@@ -179,12 +222,12 @@ a:active{
   margin: 0px auto;
   border-radius: 4px;
 
-  color: var(--textColor);
+  color: transparent;
 
 }
 
 .weather table {
-  color: var(--textColor);
+  color: transparent;
   margin: 0 auto;
   border-radius: 10px;
 }
@@ -264,10 +307,12 @@ body {
   outline: none;
 }
 
+.circle  .fas{
+  transition: all  .5s;
+}
 .circle  .fas:hover{
   color: var(--mainColor2);
-  transform: rotate(180deg);
-  transition:  .5s;
+  transform: rotate(180deg) scale(1.5);
   text-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
 }
 .circle button#open {

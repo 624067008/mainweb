@@ -17,6 +17,7 @@
   <div id="app">
     <div class="changeMainColor" @click='changeMainColor'></div>
     <div class="randomMainColor" @click="randomColor"></div>
+    <div class="randomBackGround" @click="randomBackGround"></div>
     <div class="one">
       <div class="circle-container">
         <div class="circle">
@@ -38,13 +39,13 @@
           <tr v-for="(item,i) in itemlist" :key="i">
             <td class="kuan"></td>
             <td class="lfbd"><img :src="item.imgUrl" title="?" :title=item.id class="photo"></td>
-            <td><a :href="item.aUrl" target="_blank">{{item.id}}</a></td>
+            <td><a :href="item.aUrl" target="_blank" class="jump" :data-text="item.id">{{item.id}}</a></td>
           </tr>
         </tbody>
       </table>
       <!-- 天气表 -->
       <div class="weather">
-        <div class="container_1h" ref="weather1h">
+        <div :class="{ 'open_1h':weath1h_open}" id="container_1h" ref="weather1h">
           <div class="open1h" @click="openWeather1h" ref="weather1h_er">&lt;</div>
           <div class="weather_header">forecast_1h</div>
           <table>
@@ -105,7 +106,8 @@
 
   </div>
 
-  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script> -->
+  <script src="./vue.js"></script>
   <script src="./home.js"></script>
 </body>
 

@@ -1,3 +1,4 @@
+
 // vue实例
 const vm = new Vue({
   el: '#app',
@@ -27,6 +28,8 @@ const vm = new Vue({
 
     // 随机根颜色
     this.randomMainColor()
+    //随机背景图片
+    this.randomBackGround()
   },
   data: {
     //常用网站数据
@@ -110,15 +113,96 @@ const vm = new Vue({
     weath24h_open: false,
 
     //调色板
-    colorList: ['rgb(83, 59, 215)', 'rgb(0, 204, 255)', 'rgb(0, 47, 168)', 'rgb(254, 51, 107)'],
-    // 透明50% 调色板
-    colorListO: ['rgba(83, 59, 215,.5)', 'rgba(0, 204, 255,.5)', 'rgba(0, 47, 168,.5)', 'rgba(254, 51, 107,.5)'],
-    mainColor2List: [],
+    colorList: ['rgb(83, 59, 215)', 'rgb(0, 204, 255)', 'rgb(238, 232, 170)', 'rgb(215,0,15)', 'rgb(255,119,15)', 'rgb(145,184,34)', 'rgb(128,209,200)', 'rgb(139,165,131)',],
+    colorListO: ['rgba(83, 59, 215,.5)', 'rgba(0, 204, 255,.5)', 'rgba(238, 232, 170,.5)', 'rgba(215,0,15,.5)', 'rgba(255,119,15,.5)', 'rgba(145,184,34,.5)', 'rgba(128,209,200,.5)', 'rgba(139,165,131,.5)',],
+    mainColor2List: ['rgb(254, 51, 107)', 'rgb(0, 47, 168)', 'rgb(0, 255, 255)', 'rgb(241,242,229)', 'rgb(0,0,16)', 'rgb(255,231,111)', 'rgb(255,212,169)', 'rgb(205,165,158)',],
+    mainColor2O: ['rgba(254, 51, 107,.5)', 'rgba(0, 47, 168,.5)', 'rgba(0, 255, 255, .5)', 'rgba(241,242,229,.5)', 'rgba(0,0,16,.5)', 'rgba(255,231,111,.5)', 'rgba(255,212,169,.5)', 'rgba(205,165,158,.5)',],
     colorIndex: null,
+    imgurls: [
+      '9月出现31-寒冰.png',
+      'aftershock.png',
+      'anime girl.png',
+      'Anomaly by.png',
+      'Arctic Spirit by.png',
+      'background city.png',
+      'chill study.png',
+      'championship.png',
+      'Cozy Room.png',
+      'Cyberpunk World.png',
+      'demon slayer.png',
+      'doomsday.png',
+      'depth of.png',
+      'Dota 2 - Radiant vs Dire.png',
+      'fallen dreams.png',
+      'Fantasy Girl Mask.png',
+      'floating.png',
+      'GUNDAM高达.png',
+      'Follow The Stingrays.png',
+      'Jinx Blue.png',
+      'jinx fan.png',
+      'just fly.png',
+      'Kimetsu no Yaiba.png',
+      'laundry day.png',
+      'Miko fox.png',
+      'Miss Fortune.png',
+      'Mushroom Home.png',
+      'nexus-01.png',
+      'Nier Reincarnation.png',
+      'Office Guweiz.png',
+      'outset lsland.png',
+      'One Of Us.png',
+      'Pirates.png',
+      'Portal to.png',
+      'post.png',
+      'rgb spiderman.png',
+      'Samurai Doge.png',
+      'Samurai Jinx.png',
+      'Samurai.png',
+      'Sci-Fi Energy Core.png',
+      'sealed夜晚.png',
+      'sealed白天.png',
+      'Shadows Die Twice.png',
+      'Stranded.png',
+      'Tanjiro Kamado.png',
+      'Travelling Ninja.png',
+      'Uchiha Sasuke and Uzumaki.png',
+      'Volcanonado.png',
+      'Venti and Dvalin.png',
+      'wake up.png',
+      'Water effect.png',
+      'Whale In Cloudy.png',
+      'Winter Night by Steven.png',
+      'wyy1.png',
+      'wyy10.png',
+      'wyy2.png',
+      'wyy3.png',
+      'wyy5.png',
+      'wyy4.png',
+      'wyy6.png',
+      'wyy7.png',
+      'wyy8.png',
+      'wyy9.png',
+      '冰公主.png',
+      '吾王美如画.png',
+      '剑姬原计划.png',
+      '和树一起望云.png',
+      '太空的少女.png',
+      '放逐之刃.png',
+      '暴雨已至.png',
+      '月神.png',
+      '流动星空.png',
+      '甘城.png',
+      '花与剑资料片.png',
+      '电玩少女.png',
+      '赛博朋克-集原美动态桌面.png',
+      '阳台.png',
+      '集原美.png',
+      '魔女.png',
+      '鲸落.png'
+    ],
+    imgIndex: -1
   },
-  // mounted() {
 
-  // },
   methods: {
     //jsonp请求函数
     jsonp(url, options) {
@@ -161,82 +245,19 @@ const vm = new Vue({
 
     // 打开天气
     openWeather1h() {
-      // js实现
-      // if (!this.weath1h_open) {
-      //   let a = -461
-      //   let timer = setInterval(() => {
-      //     a -= a / 20
-      //     if (a > -2) {
-      //       a = 0
-      //       this.$refs.weather1h.style.right = a + 'px'
-      //       this.$refs.weather1h_er.innerText = '>'
-      //       this.weath1h_open = true
-      //       clearInterval(timer)
-      //     }
-      //     this.$refs.weather1h.style.right = a + 'px'
-      //   }, 20)
-      // }
-      // else {
-      //   let a = -461, b = 0
-      //   let timer = setInterval(() => {
-      //     b += a / 20
-      //     a -= a / 20
-      //     if (a > -2) {
-      //       b = -461
-      //       this.$refs.weather1h.style.right = b + 'px'
-      //       this.$refs.weather1h_er.innerText = '<'
-      //       this.weath1h_open = false
-      //       clearInterval(timer)
-      //     }
-      //     this.$refs.weather1h.style.right = b + 'px'
-      //   }, 20)
-      // }
+
 
 
       if (!this.weath1h_open) {
-        this.$refs.weather1h.classList.add('open')
         this.$refs.weather1h_er.innerText = '>'
         this.weath1h_open = true
       } else {
-        this.$refs.weather1h.classList.remove('open')
         this.$refs.weather1h_er.innerText = '<'
         this.weath1h_open = false
       }
 
     },
     openWeather24h() {
-      // js实现
-      // if (!this.weath24h_open) {
-      //   console.log(1);
-      //   let a = -461
-      //   let timer = setInterval(() => {
-      //     a -= a / 20
-      //     if (a > -2) {
-      //       a = 0
-      //       this.$refs.weather24h.style.right = a + 'px'
-      //       this.$refs.weather24h_er.innerText = '>'
-      //       this.weath24h_open = true
-      //       clearInterval(timer)
-      //     }
-      //     this.$refs.weather24h.style.right = a + 'px'
-      //   }, 20)
-      // } 
-      // else {
-      //   let a = -461, b = 0
-      //   let timer = setInterval(() => {
-      //     b += a / 20
-      //     a -= a / 20
-      //     if (a > -2) {
-      //       b = -461
-      //       this.$refs.weather24h.style.right = b + 'px'
-      //       this.$refs.weather24h_er.innerText = '<'
-      //       this.weath24h_open = false
-      //       clearInterval(timer)
-      //     }
-      //     this.$refs.weather24h.style.right = b + 'px'
-      //   }, 20)
-      // }
-
 
       if (!this.weath24h_open) {
         this.$refs.weather24h.classList.add('open')
@@ -250,26 +271,43 @@ const vm = new Vue({
 
     },
     changeMainColor() {
-      const root = document.querySelector(':root')
+      const root = document.documentElement
       this.colorIndex += 1
       this.colorIndex = this.colorIndex >= this.colorList.length ? 0 : this.colorIndex
       root.style.setProperty("--mainColor1", this.colorList[this.colorIndex])
       root.style.setProperty("--mainColor1O", this.colorListO[this.colorIndex])
+      root.style.setProperty("--mainColor2", this.mainColor2List[this.colorIndex])
+      root.style.setProperty("--mainColor2O", this.mainColor2O[this.colorIndex])
     },
+    // 开局自调用
     randomMainColor() {
       const random = Math.floor(Math.random() * this.colorList.length)
       this.colorIndex = random
-      document.querySelector(':root').style.setProperty('--mainColor1', this.colorList[this.colorIndex])
-      document.querySelector(':root').style.setProperty('--mainColor1O', this.colorListO[this.colorIndex])
+      document.documentElement.style.setProperty
+      document.documentElement.style.setProperty('--mainColor1', this.colorList[this.colorIndex])
+      document.documentElement.style.setProperty('--mainColor1O', this.colorListO[this.colorIndex])
     },
     randomColor() {
+      document.documentElement.style.setProperty('--mainColor1', `rgb(${this.getRandomRGB()})`)
+      document.documentElement.style.setProperty('--mainColor2', `rgb(${this.getRandomRGB()})`)
+      document.documentElement.style.setProperty('--textColor', `rgb(${this.getRandomRGB()})`)
+      document.documentElement.style.setProperty('--mainColor1O', `rgba(${this.getRandomRGB()},.5)`)
+    },
+    getRandomRGB() {
       const randomR = Math.ceil(Math.random() * 255);
       const randomG = Math.ceil(Math.random() * 255);
       const randomB = Math.ceil(Math.random() * 255);
-      document.querySelector(':root').style.setProperty('--mainColor1', `rgb(${randomR},${randomG},${randomB})`)
-      document.querySelector(':root').style.setProperty('--mainColor2', `rgb(${randomB},${randomR},${randomG})`)
-      document.querySelector(':root').style.setProperty('--textColor', `rgb(${randomG},${randomB},${randomR})`)
-      document.querySelector(':root').style.setProperty('--mainColor1O', `rgba(${randomR},${randomG},${randomB},.5)`)
+      return `${randomR},${randomG},${randomB}`
+    },
+    randomBackGround() {
+      let a = this.imgurls.length
+      const i = Math.floor(Math.random() * a)
+      if (i == this.imgIndex) return randomBackGround()
+      this.imgIndex = i
+      let imgUrl = this.imgurls[i]
+      // 转义名字中空格  不然背景不显示
+      imgUrl = imgUrl.replace(/\s/g, encodeURIComponent(' '))
+      document.querySelector('.one').style.backgroundImage = `url(D:/ruanjian/美化/图片/总壁纸库/${imgUrl})`
     }
   },
 })

@@ -97,10 +97,6 @@ body {
   margin: 0;
 }
 
-.two {
-
-  /* padding: 50px; */
-}
 
 .two.show-nav {
   transform: rotate(-20deg)
