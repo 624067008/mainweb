@@ -5,7 +5,7 @@
   /* --mainColor1O:rgba(0, 204, 255,.5); */
   --mainColor2:rgb(255,165,0);
   --mainColor2O:rgba(255,165,0,.5);
-  --textColor:black;
+  --textColor:white;
 }
 
 body{
@@ -56,7 +56,7 @@ img {
 
 .jump{
   position: relative;
-  background: linear-gradient(to right, var(--mainColor1O) 50%, var(--mainColor2O) 50%);
+  background: linear-gradient(to right, var(--mainColor1) 50%, var(--mainColor2) 50%);
   border-radius: 4px;
   width: 100px;
   height: 25px;
@@ -93,15 +93,51 @@ img {
   text-shadow: none;
 }
 .jump:hover {
-  background: linear-gradient(to right, var(--mainColor1) 50%, var(--mainColor2) 50%);
-  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2);
+  background: linear-gradient(to left, var(--mainColor1) 50%, var(--mainColor2) 50%);
+  /* box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2); */
+}
+.jump:hover::after{
+  background: linear-gradient(to right, var(--mainColor1) 50%, transparent 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.jump:hover::before{
+  background: linear-gradient(to left, var(--mainColor2) 50%, transparent 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 /* 被点击时 */
 .jump:active{
   transform: scale(0.98);
   transition: all .4s ;
 }
+@keyframes  tada{
+  from {
+    transform: scale3d(1, 1, 1)
+  }
 
+  10%,
+  20% {
+    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg)
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg)
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg)
+  }
+
+  to {
+    transform: scale3d(1, 1, 1)
+  }
+}
 
 
 .photo{
@@ -160,7 +196,7 @@ img {
 }
 #container_1h.open_1h{
   right: 5px;
-  box-shadow: 2px 2px 3px var(--mainColor1),-2px -2px 5px var(--mainColor2);
+  /* box-shadow: 2px 2px 3px var(--mainColor1),-2px -2px 5px var(--mainColor2); */
 }
 /* 1h开关 */
 #container_1h .open1h{
@@ -170,15 +206,15 @@ img {
   left: -20px;
   top: 20px;
   color: var(--textColor);
-  background: linear-gradient(to right, var(--mainColor1O) 50%, var(--mainColor2O) 50%);
+  background: var(--mainColor1);
   text-shadow:none;
   border-radius: 4px ;
   cursor: pointer;
   transition:all .3s;
 }
 #container_1h .open1h:hover{
-  background: linear-gradient(to right, var(--mainColor1) 50%, var(--mainColor2) 50%);
-  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2);
+  background: var(--mainColor2);
+  /* box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2); */
   transform:  scale(1.5);
 }
 
@@ -195,7 +231,7 @@ img {
 }
 .container_24h.open{
   right: 5px;
-  box-shadow: 2px 2px 3px var(--mainColor1),-2px -2px 5px var(--mainColor2);
+  /* box-shadow: 2px 2px 3px var(--mainColor1),-2px -2px 5px var(--mainColor2); */
 }
 
 /* 24h开关 */
@@ -205,15 +241,15 @@ img {
   left: -20px;
   top: 20px;
   color: var(--textColor);
-  background: linear-gradient(to right, var(--mainColor1O) 50%, var(--mainColor2O) 50%);
+  background: var(--mainColor1);
   border-radius: 4px ;
   cursor: pointer;
   transition:all .3s;
   text-shadow: none;
 }
 .container_24h .open24h:hover{
-  background: linear-gradient(to left, var(--mainColor1) 50%, var(--mainColor2) 50%);
-  box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2);
+  background: var(--mainColor2);
+  /* box-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor2); */
   transform:  scale(1.5);
 }
 .weather .weather_header{
@@ -294,7 +330,7 @@ body {
   background: transparent;
   border: 0;
   font-size: 26px;
-  color:   var(--mainColor1O);
+  color:   var(--mainColor1);
   transition: .3s;
 }
 
@@ -313,7 +349,7 @@ body {
 .circle  .fas:hover{
   color: var(--mainColor2);
   transform: rotate(180deg) scale(1.5);
-  text-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1);
+  /* text-shadow: 1px 1px 3px var(--mainColor1),-1px -1px 5px var(--mainColor1); */
 }
 .circle button#open {
   left: 60%;

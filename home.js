@@ -3,7 +3,6 @@
 const vm = new Vue({
   el: '#app',
   mounted() {
-
     // 旋转导航栏
     const open = document.getElementById('open')
     const close = document.getElementById('close')
@@ -19,6 +18,7 @@ const vm = new Vue({
     setInterval(() => {
       this.jsonp('https://wis.qq.com/weather/common?callback=vm.myJsonp1h', this.params_1h)
       this.jsonp('https://wis.qq.com/weather/common?callback=vm.myJsonp24h', this.params_24)
+      this.randomBackGround()
     }, 600000)
 
     setInterval(() => {
@@ -30,8 +30,22 @@ const vm = new Vue({
     this.randomMainColor()
     //随机背景图片
     this.randomBackGround()
+    //默认打开天气表
+    this.openWeather24h()
+    this.openWeather1h()
+    //默认开始buxianxhi
+    this.switchEle()
+
+
+    window.addEventListener('dblclick', this.switchEle)
+    // 禁止页面文本被选中
+    document.onselectstart = () => {
+      return false
+    }
   },
   data: {
+    // 元素是否显示
+    switch: false,
     //常用网站数据
     itemlist: [
       {
@@ -65,11 +79,6 @@ const vm = new Vue({
         id: '学习通'
       },
       {
-        imgUrl: 'img/ins.jpg',
-        aUrl: "https://www.ikanins.com/",
-        id: 'ins美女推荐'
-      },
-      {
         imgUrl: 'img/抖音.png',
         aUrl: "https://www.douyin.com/",
         id: '抖音'
@@ -81,8 +90,18 @@ const vm = new Vue({
       },
       {
         imgUrl: 'img/斗鱼.jpg',
-        aUrl: "http://www.douyu.com",
+        aUrl: "https://www.douyu.com",
         id: '斗鱼'
+      },
+      {
+        imgUrl: 'img/是天上飞的.jpeg',
+        aUrl: 'https://www.douyin.com/user/MS4wLjABAAAAiaGCCWN_wMB-t9IMeSPQsuK9j7i-WnFhhIHc4LVhNB4',
+        id: '是天上飞的'
+      },
+      {
+        imgUrl: 'img/碳烧风见.jpeg',
+        aUrl: 'https://www.douyin.com/user/MS4wLjABAAAAlkabI-K_kVM0B1lUXaw9RdLpNhGzHDbzqXyzW1rN7PY',
+        id: '碳烧风见'
       }
     ],
     // 查询1h参数对象
@@ -113,10 +132,13 @@ const vm = new Vue({
     weath24h_open: false,
 
     //调色板
-    colorList: ['rgb(83, 59, 215)', 'rgb(0, 204, 255)', 'rgb(238, 232, 170)', 'rgb(215,0,15)', 'rgb(255,119,15)', 'rgb(145,184,34)', 'rgb(128,209,200)', 'rgb(139,165,131)',],
-    colorListO: ['rgba(83, 59, 215,.5)', 'rgba(0, 204, 255,.5)', 'rgba(238, 232, 170,.5)', 'rgba(215,0,15,.5)', 'rgba(255,119,15,.5)', 'rgba(145,184,34,.5)', 'rgba(128,209,200,.5)', 'rgba(139,165,131,.5)',],
-    mainColor2List: ['rgb(254, 51, 107)', 'rgb(0, 47, 168)', 'rgb(0, 255, 255)', 'rgb(241,242,229)', 'rgb(0,0,16)', 'rgb(255,231,111)', 'rgb(255,212,169)', 'rgb(205,165,158)',],
-    mainColor2O: ['rgba(254, 51, 107,.5)', 'rgba(0, 47, 168,.5)', 'rgba(0, 255, 255, .5)', 'rgba(241,242,229,.5)', 'rgba(0,0,16,.5)', 'rgba(255,231,111,.5)', 'rgba(255,212,169,.5)', 'rgba(205,165,158,.5)',],
+    colorList: ['rgb(53,121,68)', 'rgb(47,89,163)', 'rgb(195,71,154)', 'rgb(188,56,35)', 'rgb(176,31,36)', 'rgb(97,95,116)', 'rgb(0,46,166)', 'rgb(215,0,15)', 'rgb(255,119,15)', 'rgb(53,121,68)',],
+
+    colorListO: ['rgba(53,121,68,.5)', 'rgba(47,89,163,.5)', 'rgba(195,71,154,.5)', 'rgba(188,56,35,.5)', 'rgba(176,31,36,.5)', 'rgba(97,95,116,.5)', 'rgba(0,46,166,.5)', 'rgba(215,0,15,.5)', 'rgba(255,119,15,.5)', 'rgba(53.121,68,.5)',],
+
+    mainColor2List: ['rgb(255,165,0)', 'rgb(244,179,194)', 'rgb(246,172,25)', 'rgb(180,189,160)', 'rgb(28,25,37)', 'rgb(199,147,95)', 'rgb(255,231,143)', 'rgb(241,242,229)', 'rgb(0,0,16)', 'rgb(141,183,153)'],
+
+    mainColor2O: ['rgba(255,165,0,.5)', 'rgba(244,179,194,.5)', 'rgba(246,172,25,.5)', 'rgba(180,189,160,.5)', 'rgba(28,25,37,.5)', 'rgba(199,147,95,.5)', 'rgba(255,231,143,.5)', 'rgba(241,242,229,.5)', 'rgba(0,0,16,.5)', 'rgba(141,183,153,.5)'],
     colorIndex: null,
     imgurls: [
       '9月出现31-寒冰.png',
@@ -245,9 +267,6 @@ const vm = new Vue({
 
     // 打开天气
     openWeather1h() {
-
-
-
       if (!this.weath1h_open) {
         this.$refs.weather1h_er.innerText = '>'
         this.weath1h_open = true
@@ -258,7 +277,6 @@ const vm = new Vue({
 
     },
     openWeather24h() {
-
       if (!this.weath24h_open) {
         this.$refs.weather24h.classList.add('open')
         this.$refs.weather24h_er.innerText = '>'
@@ -268,12 +286,12 @@ const vm = new Vue({
         this.$refs.weather24h_er.innerText = '<'
         this.weath24h_open = false
       }
-
     },
     changeMainColor() {
       const root = document.documentElement
       this.colorIndex += 1
       this.colorIndex = this.colorIndex >= this.colorList.length ? 0 : this.colorIndex
+
       root.style.setProperty("--mainColor1", this.colorList[this.colorIndex])
       root.style.setProperty("--mainColor1O", this.colorListO[this.colorIndex])
       root.style.setProperty("--mainColor2", this.mainColor2List[this.colorIndex])
@@ -283,7 +301,6 @@ const vm = new Vue({
     randomMainColor() {
       const random = Math.floor(Math.random() * this.colorList.length)
       this.colorIndex = random
-      document.documentElement.style.setProperty
       document.documentElement.style.setProperty('--mainColor1', this.colorList[this.colorIndex])
       document.documentElement.style.setProperty('--mainColor1O', this.colorListO[this.colorIndex])
     },
@@ -308,6 +325,35 @@ const vm = new Vue({
       // 转义名字中空格  不然背景不显示
       imgUrl = imgUrl.replace(/\s/g, encodeURIComponent(' '))
       document.querySelector('.one').style.backgroundImage = `url(D:/ruanjian/美化/图片/总壁纸库/${imgUrl})`
-    }
+    },
+    // 消失能显现的元素
+
+    switchEle(e) {
+      //防止点击其他按钮时触发
+      if (e && e.target.className != 'one' && e.target.className != 'box') {
+        return
+      }
+
+      // e.preventDefault()
+      if (!this.switch) {
+        this.$refs.circle_container.style.display = 'none'
+        this.$refs.box.style.display = 'none'
+        this.$refs.weather.style.display = 'none'
+        this.switch = true
+        return
+      }
+      this.$refs.circle_container.style.display = 'block'
+      this.$refs.box.style.display = 'block'
+      this.$refs.weather.style.display = 'block'
+      this.switch = false
+    },
   },
 })
+
+
+function jump(i) {
+  i.style.animation = 'tada 1s'
+  setTimeout(() => {
+    i.style.animation = 'none'
+  }, 1000)
+}
