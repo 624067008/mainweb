@@ -36,12 +36,40 @@ const vm = new Vue({
     //默认开始buxianxhi
     this.switchEle()
 
-
     window.addEventListener('dblclick', this.switchEle)
     // 禁止页面文本被选中
     document.onselectstart = () => {
       return false
     }
+
+    window.onkeydown = (e) => {
+      if ((e.key === 'g' || e.key === 'b') && !this.showSearch) {
+        this.switchSearch()
+        this.searchWay = e.key
+        setTimeout(() => {
+          document.querySelector('.search').focus()
+        }, 200)
+      }
+
+      if (e.key === 'Escape') {
+        this.switchSearch()
+      }
+
+      if (e.key === 'Enter' && this.showSearch && this.searchKeyWord.length > 0) {
+        let a = document.createElement('a')
+
+        this.searchWay == 'b' ?
+          a.href = `https://www.baidu.com/s?ie=UTF-8&wd=${this.searchKeyWord}` :
+          a.href = `https://www.google.com/search?q=${this.searchKeyWord}&rlz=1C1NDCM_enHK972JP972&oq=cnm&aqs=chrome..69i57j69i60j69i65l2j69i60l2.1711j0j4&sourceid=chrome&ie=UTF-8`
+
+        a.setAttribute('target', '_blank')
+        a.click()
+        a.remove()
+        this.switchSearch()
+        this.searchKeyWord = ''
+      }
+    }
+
   },
   data: {
     // 元素是否显示
@@ -128,8 +156,8 @@ const vm = new Vue({
     data_24h: {},
 
     //1h状态
-    weath1h_open: false,
-    weath24h_open: false,
+    weath1h_open: true,
+    weath24h_open: true,
 
     //调色板
     colorList: ['rgb(53,121,68)', 'rgb(47,89,163)', 'rgb(195,71,154)', 'rgb(188,56,35)', 'rgb(176,31,36)', 'rgb(97,95,116)', 'rgb(0,46,166)', 'rgb(215,0,15)', 'rgb(255,119,15)', 'rgb(53,121,68)',],
@@ -222,7 +250,12 @@ const vm = new Vue({
       '魔女.png',
       '鲸落.png'
     ],
-    imgIndex: -1
+    imgIndex: -1,
+
+    // 搜索关键词
+    searchKeyWord: '',
+    showSearch: false,
+    searchWay: ''
   },
 
   methods: {
@@ -330,7 +363,7 @@ const vm = new Vue({
 
     switchEle(e) {
       //防止点击其他按钮时触发
-      if (e && e.target.className != 'one' && e.target.className != 'box') {
+      if (e && (e.target.className == 'changeMainColor' || e.target.className == 'randomMainColor' || e.target.className == 'randomBackGround' || e.target.className == 'circle')) {
         return
       }
 
@@ -347,6 +380,14 @@ const vm = new Vue({
       this.$refs.weather.style.display = 'block'
       this.switch = false
     },
+
+
+    switchSearch() {
+      this.showSearch = !this.showSearch
+      let display = this.showSearch ? 'block' : 'none'
+      document.querySelector('.search').style.display = display
+      document.querySelector('.fa-search').style.display = display
+    }
   },
 })
 

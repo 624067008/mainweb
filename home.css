@@ -412,3 +412,31 @@ nav a:hover {
   display: inline-block;
   border-radius: 4px;
 }
+
+/* 搜索条 */
+.search {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 561px;
+  height: 44px;
+  border-radius: 22px;
+  padding:0 22px  0 44px;
+  transform:translate(-50%,-50%);
+  border: none;
+  z-index: 1;
+}
+
+.search:focus{
+  outline: none;
+}
+
+.fa-search{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform:translate(calc(-50% - 255px),-50%);
+  z-index: 4;
+}

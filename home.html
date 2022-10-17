@@ -10,14 +10,22 @@
     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
     crossorigin="anonymous" />
   <link rel="stylesheet" href="./home.css">
-  <title>邓遥波</title>
+  <title>亚心少力</title>
 </head>
 
 <body>
   <div id="app">
+    <!--  换按钮色按钮 -->
     <div class="changeMainColor" @click='changeMainColor'></div>
+    <!-- 随机按钮色 -->
     <div class="randomMainColor" @click="randomColor"></div>
+    <!-- 随机背景 -->
     <div class="randomBackGround" @click="randomBackGround"></div>
+    <!-- 搜索输入框 -->
+    <i class="fas fa-search"></i>
+    <input class="search" v-model='searchKeyWord' type="search">
+
+
     <div class="one">
       <div class="circle-container" ref="circle_container">
         <div class="circle">
